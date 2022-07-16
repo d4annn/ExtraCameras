@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dan.extracameras.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "PlayerManagerMixin",
+    "MinecraftClientMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "ConnectScreenMixin",
+    "EntityMixin",
+    "InGameHudMixin",
+    "GameRendererMixin",
+    "ChunkOcclusionGraphBuilderMixin",
+    "ClientPlayerEntityMixin",
+    "BlockRendererManagerMixin",
+    "AbstractClientPlayerEntityMixin",
+    "ClientPlayerInteractionManagerMixin",
+    "PlayerManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+  ]
+}

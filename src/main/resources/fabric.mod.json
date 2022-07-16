@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "extracameras",
+  "version": "${version}",
+
+  "name": "Extra Cameras",
+  "description": "A fabric client mod that allows you to place cameras around the world and see whats happening there in any moment.",
+  "authors": [
+    "Getta"
+  ],
+  "contact": {
+    "homepage": "https://github.com/gettaaa/ExtraCameras"
+  },
+
+
+  "license": "CC0-1.0",
+  "icon": "assets/extracameras/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dan.extracameras.ExtraCameras"
+    ],
+    "modmenu": [
+      "dan.extracameras.modmenu.ExtraCamerasModMenuEntry"
+    ]
+  },
+  "mixins": [
+    "extracameras.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.18.x"
+  },
+  "recommends": {
+    "modmenu": ">=3.1.0"
+  }
+}
