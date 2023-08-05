@@ -1,7 +1,6 @@
 package dan.extracameras.config;
 
 import dan.extracameras.camera.Camera;
-import dan.extracameras.utils.Variables;
 
 import java.util.List;
 
@@ -39,8 +38,6 @@ public class CameraConfig {
 
     public boolean addCamera(Camera camera) {
         this.cameras.add(camera);
-        Variables.config.changeWorldCamerasConfig(Variables.currentWorldCameras);
-        Variables.config.saveConfig();
         return true;
     }
 }

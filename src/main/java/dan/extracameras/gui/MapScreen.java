@@ -2,7 +2,7 @@ package dan.extracameras.gui;
 
 import dan.extracameras.camera.Camera;
 import dan.extracameras.utils.RenderUtils;
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.CyclingButtonWidget;
@@ -94,7 +94,7 @@ public class MapScreen extends Screen {
         this.editButton = this.addDrawableChild(new ButtonWidget(width - (xCount), height - yCount, 97, 20, new TranslatableText("text.extracameras.edit"), (button) -> {
             client.setScreen(new CreateCameraScreen(this, this.selectedCamera, true));
         }));
-        if (Variables.currentWorldCameras.getCameras().isEmpty()) {
+        if (Instance.currentWorldCameras.getCameras().isEmpty()) {
             this.camerasButton.active = false;
             this.tpToNearestButton.active = false;
         }
@@ -106,7 +106,7 @@ public class MapScreen extends Screen {
         super.render(matrices, mouseX, mouseY, delta);
         fill(matrices, 0, (int) RenderUtils.getEquivalentPosition(referenceHeight, 20, height), width,this.yMovement - 7, Color.BLACK.getRGB());
 
-        if (Variables.currentWorldCameras.getCameras().isEmpty()) {
+        if (Instance.currentWorldCameras.getCameras().isEmpty()) {
             this.camerasButton.active = false;
             this.tpToNearestButton.active = false;
         }

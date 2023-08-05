@@ -1,7 +1,7 @@
 package dan.extracameras.mixins;
 
 import dan.extracameras.packets.Packet;
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import dan.extracameras.utils.WorldUtils;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,11 +19,11 @@ public class MinecraftClientMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        if (!Variables.packets.isEmpty()) {
-            for (Packet packet : Variables.packets) {
+        if (!Instance.packets.isEmpty()) {
+            for (Packet packet : Instance.packets) {
                 packet.execute();
             }
-            Variables.packets.clear();
+            Instance.packets.clear();
         }
     }
 }

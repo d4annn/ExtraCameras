@@ -1,8 +1,7 @@
 package dan.extracameras.mixins;
 
 import dan.extracameras.camera.CameraEntity;
-import dan.extracameras.utils.CameraUtils;
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
@@ -34,7 +33,7 @@ public class EntityMixin {
 
     @Inject(method = "move", at = @At("HEAD"))
     private void noClip(MovementType movementType, Vec3d movement, CallbackInfo ci) {
-        if (Variables.cameraOn && (Entity) ((Object) this) instanceof ClientPlayerEntity) {
+        if (Instance.cameraOn && (Entity) ((Object) this) instanceof ClientPlayerEntity) {
             this.noClip = true;
         }
     }
@@ -42,7 +41,7 @@ public class EntityMixin {
     @Inject(method = "changeLookDirection", at = @At("HEAD"), cancellable = true)
     private void overrideYaw(double yawChange, double pitchChange, CallbackInfo ci) {
         if ((Object) this instanceof ClientPlayerEntity) {
-            if (Variables.cameraOn) {
+            if (Instance.cameraOn) {
                 CameraEntity.getCamera().updateCameraRotations((float) yawChange, (float) pitchChange);
             }
         }

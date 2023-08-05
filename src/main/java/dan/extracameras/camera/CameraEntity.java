@@ -1,7 +1,7 @@
 package dan.extracameras.camera;
 
+import dan.extracameras.config.Config;
 import dan.extracameras.utils.CameraUtils;
-import dan.extracameras.utils.Variables;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -33,7 +33,6 @@ public class CameraEntity extends ClientPlayerEntity {
     private CameraEntity(MinecraftClient mc, ClientWorld world, ClientPlayNetworkHandler netHandler, StatHandler stats, ClientRecipeBook recipeBook, Camera cam) {
         super(mc, world, netHandler, stats, recipeBook, false, false);
         this.cam = cam;
-        //TODO: change tihs
         setIsZoneLoaded(false);
     }
 
@@ -119,7 +118,7 @@ public class CameraEntity extends ClientPlayerEntity {
     }
 
     private static double getMoveSpeed() {
-        return Variables.CameraOptions.cameraSpeed;
+        return Config.getInstance().cameraSpeed;
     }
 
     private void handleMotion(double forward, double up, double strafe) {

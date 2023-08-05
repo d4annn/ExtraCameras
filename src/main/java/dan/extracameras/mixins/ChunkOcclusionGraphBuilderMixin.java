@@ -1,6 +1,6 @@
 package dan.extracameras.mixins;
 
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import net.minecraft.client.render.chunk.ChunkOcclusionDataBuilder;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +13,7 @@ public class ChunkOcclusionGraphBuilderMixin {
 
     @Inject(at = @At("HEAD"), method = "markClosed(Lnet/minecraft/util/math/BlockPos;)V", cancellable = true)
     private void opaqueBlocks(BlockPos pos, CallbackInfo ci) {
-        if(Variables.cameraOn) {
+        if(Instance.cameraOn) {
             ci.cancel();
         }
     }

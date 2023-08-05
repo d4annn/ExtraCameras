@@ -1,7 +1,7 @@
 package dan.extracameras.mixins;
 
 import dan.extracameras.utils.CameraUtils;
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +13,7 @@ public class AbstractClientPlayerEntityMixin {
 
     @Inject(method = "isSpectator", at = @At("HEAD"), cancellable = true)
     private void overrideIsSpectator(CallbackInfoReturnable<Boolean> cir) {
-        if (Variables.cameraOn && CameraUtils.getFreeCameraSpectator()) {
+        if (Instance.cameraOn && CameraUtils.getFreeCameraSpectator()) {
             cir.setReturnValue(true);
         }
     }

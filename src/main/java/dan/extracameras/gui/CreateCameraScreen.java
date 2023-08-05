@@ -2,6 +2,7 @@ package dan.extracameras.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dan.extracameras.camera.Camera;
+import dan.extracameras.config.Config;
 import dan.extracameras.gui.widgets.CustomButtonWidget;
 import dan.extracameras.gui.widgets.CustomCheckBoxWidget;
 import dan.extracameras.gui.widgets.CustomTextFieldWidget;
@@ -97,9 +98,9 @@ public class CreateCameraScreen extends Screen {
         this.addButton = this.addDrawableChild(new ButtonWidget(width / 2 - 155, height / 6 + 168, 150, 20, addKey, button -> {
             Camera newCamera = new Camera(createBlockPos(), this.cameraNameButton.getText().trim(), this.dimension, this.active, this.visuals, this.red, this.green, this.blue);
             if (this.editing) {
-                Variables.currentWorldCameras.changeCamera(Variables.currentWorldCameras.getCameras().indexOf(this.camera), newCamera);
-                Variables.config.changeWorldCamerasConfig(Variables.currentWorldCameras);
-                Variables.config.saveConfig();
+                Instance.currentWorldCameras.changeCamera(Instance.currentWorldCameras.getCameras().indexOf(this.camera), newCamera);
+                Config.getInstance().changeWorldCamerasConfig(Instance.currentWorldCameras);
+                Config.getInstance().saveConfig();
             } else {
                 newCamera.add();
             }
@@ -175,7 +176,7 @@ public class CreateCameraScreen extends Screen {
             active = false;
             this.createError.setError("Provide a coordinate");
         } else {
-            for (Camera camera1 : Variables.currentWorldCameras.getCameras()) {
+            for (Camera camera1 : Instance.currentWorldCameras.getCameras()) {
                 if (camera1.getPos().equals(pos) && camera1.getDimension().equals(this.dimension.getName().getString())) {
                     if (this.camera == null) {
                         active = false;
@@ -228,7 +229,7 @@ public class CreateCameraScreen extends Screen {
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         buttonsY -= 7;
         if (mouseX >= width / 2 - 101 && mouseX < width / 2 - 101 + 100 && mouseY >= buttonsY && mouseY < buttonsY + 20) {
-            if (this.activeTimer <= Variables.CameraOptions.tickCooldownSupplyInfo) {
+            if (this.activeTimer <= Config.getInstance().tickCooldownSupplyInfo) {
                 this.activeTimer++;
             } else {
                 supplyInfo.clear();
@@ -238,7 +239,7 @@ public class CreateCameraScreen extends Screen {
                 client.currentScreen.renderTooltip(matrices, supplyInfo, mouseX, mouseY);
             }
         } else if (mouseX >= width / 2 - 101 && mouseX < width / 2 - 101 + 100 && mouseY >= buttonsY + 48 && mouseY < buttonsY + 48 + 20) {
-            if (this.visualsTimer <= Variables.CameraOptions.tickCooldownSupplyInfo) {
+            if (this.visualsTimer <= Config.getInstance().tickCooldownSupplyInfo) {
                 this.visualsTimer++;
             } else {
                 supplyInfo.clear();

@@ -1,8 +1,9 @@
 package dan.extracameras.camera;
 
+import dan.extracameras.config.Config;
 import dan.extracameras.utils.Dimensions;
 import dan.extracameras.utils.ErrorUtils;
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -31,12 +32,10 @@ public class Camera {
         this.blue = b;
         this.green = g;
         this.pinned = false;
-        this.corner1 = new BlockPos(pos.getX() + 16 * Variables.CameraOptions.cameraChunkDistance, 256, pos.getZ() + Variables.CameraOptions.cameraChunkDistance * 16);
-        this.corner2 = new BlockPos(pos.getX() - 16 * Variables.CameraOptions.cameraChunkDistance, -64, pos.getZ() - Variables.CameraOptions.cameraChunkDistance * 16);
     }
 
     public void add() {
-        Variables.currentWorldCameras.addCamera(this);
+        Instance.currentWorldCameras.addCamera(this);
         ErrorUtils.gameInfo("§8" + this.name + " §rcamera added");
     }
 

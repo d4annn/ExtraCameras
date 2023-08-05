@@ -2,7 +2,6 @@ package dan.extracameras;
 
 import dan.extracameras.config.Config;
 import dan.extracameras.packets.Packets;
-import dan.extracameras.utils.Variables;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 
@@ -15,11 +14,8 @@ public class ExtraCameras implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        Variables.config = new Config();
-        Variables.config.loadUp();
-        Variables.config.loadConfig();
-        Variables.config.reloadConfig();
-        Variables.config.saveConfig();
+        Config.setInstance(new Config());
+        Config.getInstance().loadConfig();
         KeyBindingHelper.registerKeyBinding(KeyBinds.OPEN_MENU);
         KeyBindingHelper.registerKeyBinding(KeyBinds.PLACE_CAMERA);
         KeyBindingHelper.registerKeyBinding(KeyBinds.OPEN_LAST_CAMERA);

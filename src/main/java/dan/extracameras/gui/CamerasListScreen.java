@@ -1,20 +1,18 @@
 package dan.extracameras.gui;
 
 import dan.extracameras.camera.Camera;
-import dan.extracameras.camera.FakeCameraClient;
+import dan.extracameras.config.Config;
 import dan.extracameras.gui.widgets.CameraListWidget;
 import dan.extracameras.utils.CameraUtils;
 import dan.extracameras.utils.I18nUtils;
 import dan.extracameras.utils.Size;
-import dan.extracameras.utils.Variables;
-import net.minecraft.client.MinecraftClient;
+import dan.extracameras.utils.Instance;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
 
 public class CamerasListScreen extends Screen {
 
@@ -52,9 +50,9 @@ public class CamerasListScreen extends Screen {
         }));
         this.deleteButton = this.addDrawableChild(new ButtonWidget(width / 2 - 76, height - 52, 74, 20, new TranslatableText("text.extracameras.delete"), button -> {
             if (this.delete) {
-                Variables.currentWorldCameras.deleteCamera(Variables.currentWorldCameras.getCameras().indexOf(this.selectedCamera));
-                Variables.config.changeWorldCamerasConfig(Variables.currentWorldCameras);
-                Variables.config.saveConfig();
+                Instance.currentWorldCameras.deleteCamera(Instance.currentWorldCameras.getCameras().indexOf(this.selectedCamera));
+                Config.getInstance().changeWorldCamerasConfig(Instance.currentWorldCameras);
+                Config.getInstance().saveConfig();
                 this.delete = false;
                 this.camerasList.updateEntries();
             } else {
@@ -77,9 +75,9 @@ public class CamerasListScreen extends Screen {
         this.pinButton = this.addDrawableChild(new ButtonWidget(width / 2 - 76, height - 28, 74, 20, new TranslatableText("text.extracameras.pin"), button -> {
             Camera cam = this.selectedCamera;
             this.selectedCamera.setPinned(!this.selectedCamera.isPinned());
-            Variables.currentWorldCameras.changeCamera(Variables.currentWorldCameras.getCameras().indexOf(cam), this.selectedCamera);
-            Variables.config.changeWorldCamerasConfig(Variables.currentWorldCameras);
-            Variables.config.saveConfig();
+            Instance.currentWorldCameras.changeCamera(Instance.currentWorldCameras.getCameras().indexOf(cam), this.selectedCamera);
+            Config.getInstance().changeWorldCamerasConfig(Instance.currentWorldCameras);
+            Config.getInstance().saveConfig();
             this.camerasList.updateEntries();
         }));
         this.pinButton.active = false;

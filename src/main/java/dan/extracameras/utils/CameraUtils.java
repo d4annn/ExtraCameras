@@ -8,9 +8,7 @@ import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.chunk.ChunkManager;
 import net.minecraft.world.chunk.ChunkStatus;
-import org.apache.http.util.EntityUtils;
 import org.jetbrains.annotations.Nullable;
 
 public class CameraUtils {
@@ -26,18 +24,18 @@ public class CameraUtils {
     }
 
     public static void onEnable(Camera camera) {
-        Variables.fakeCamera = new FakeCameraClient();
-        Variables.cameraOn = true;
+        Instance.fakeCamera = new FakeCameraClient();
+        Instance.cameraOn = true;
         MinecraftClient.getInstance().setScreen(null);
         CameraEntity.setCameraState(true, camera);
-        Variables.lastCamera = camera;
+        Instance.lastCamera = camera;
         CameraEntity.setTesellating(false);
     }
 
     public static void onDisable() {
-        Variables.fakeCamera.despawn();
-        Variables.fakeCamera.resetPlayerPosition();
-        Variables.cameraOn = false;
+        Instance.fakeCamera.despawn();
+        Instance.fakeCamera.resetPlayerPosition();
+        Instance.cameraOn = false;
         MinecraftClient.getInstance().worldRenderer.reload();
         CameraEntity.setTesellating(false);
         CameraEntity.setCameraState(false, null);

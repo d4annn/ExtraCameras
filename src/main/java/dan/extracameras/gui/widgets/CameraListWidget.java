@@ -5,8 +5,7 @@ import dan.extracameras.camera.Camera;
 import dan.extracameras.config.Config;
 import dan.extracameras.gui.CamerasListScreen;
 import dan.extracameras.gui.CreateCameraScreen;
-import dan.extracameras.utils.RenderUtils;
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.client.util.NarratorManager;
@@ -15,9 +14,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CameraListWidget extends ExtraCamerasEntryList<CameraListWidget.CameraEntry> {
 
@@ -31,7 +28,7 @@ public class CameraListWidget extends ExtraCamerasEntryList<CameraListWidget.Cam
         super(MinecraftClient.getInstance(), screen.width, screen.height, 40, screen.height - 86, 18);
         this.gui = screen;
         this.camerasFiltered = new ArrayList<>();
-        for (Camera camera : Variables.currentWorldCameras.getCameras()) {
+        for (Camera camera : Instance.currentWorldCameras.getCameras()) {
             this.camerasFiltered.add(new CameraEntry(gui, camera));
         }
         this.camerasFiltered.forEach(this::addEntry);
@@ -40,7 +37,7 @@ public class CameraListWidget extends ExtraCamerasEntryList<CameraListWidget.Cam
     public void updateEntries() {
         clearEntries();
         this.camerasFiltered.clear();
-        for (Camera camera : Variables.currentWorldCameras.getCameras()) {
+        for (Camera camera : Instance.currentWorldCameras.getCameras()) {
             this.camerasFiltered.add(new CameraEntry(gui, camera));
         }
         reOrderPinned();
@@ -72,7 +69,7 @@ public class CameraListWidget extends ExtraCamerasEntryList<CameraListWidget.Cam
 
     @Override
     public int getRowWidth() {
-        return (int) Variables.CamerasListVariables.entryWidth;
+        return (int) Config.getInstance().entryWidth;
     }
 
     public void updateFilter(String filter) {

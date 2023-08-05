@@ -1,6 +1,6 @@
 package dan.extracameras.mixins;
 
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,7 +21,7 @@ public class ClientPlayerInteractionManagerMixin {
 
     @Inject(method = "interactItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;syncSelectedSlot()V"), cancellable = true)
     private void onProcessRightClickFirst(PlayerEntity player, World worldIn, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if (Variables.cameraOn) {
+        if (Instance.cameraOn) {
             cir.setReturnValue(ActionResult.PASS);
             cir.cancel();
         }
@@ -35,7 +35,7 @@ public class ClientPlayerInteractionManagerMixin {
             at = @At("HEAD"),
             cancellable = true)
     private void onRightClickMouseOnEntityPre1(PlayerEntity player, Entity target, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if (Variables.cameraOn) {
+        if (Instance.cameraOn) {
             cir.setReturnValue(ActionResult.PASS);
         }
     }
@@ -49,28 +49,28 @@ public class ClientPlayerInteractionManagerMixin {
             at = @At("HEAD"),
             cancellable = true)
     private void onRightClickMouseOnEntityPre2(PlayerEntity player, Entity target, EntityHitResult trace, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if (Variables.cameraOn) {
+        if (Instance.cameraOn) {
             cir.setReturnValue(ActionResult.PASS);
         }
     }
 
     @Inject(method = "attackEntity", at = @At("HEAD"), cancellable = true)
     private void preventEntityAttacksInFreeCameraMode(PlayerEntity player, Entity target, CallbackInfo ci) {
-        if (Variables.cameraOn) {
+        if (Instance.cameraOn) {
             ci.cancel();
         }
     }
 
     @Inject(method = "attackBlock", at = @At("HEAD"), cancellable = true)
     private void handleBreakingRestriction1(BlockPos pos, Direction side, CallbackInfoReturnable<Boolean> cir) {
-        if (Variables.cameraOn) {
+        if (Instance.cameraOn) {
             cir.setReturnValue(false);
         }
     }
 
     @Inject(method = "updateBlockBreakingProgress", at = @At("HEAD"), cancellable = true) // MCP: onPlayerDamageBlock
     private void handleBreakingRestriction2(BlockPos pos, Direction side, CallbackInfoReturnable<Boolean> cir) {
-        if (Variables.cameraOn) {
+        if (Instance.cameraOn) {
             cir.setReturnValue(true);
         }
     }

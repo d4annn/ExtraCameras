@@ -2,7 +2,7 @@ package dan.extracameras.mixins;
 
 import dan.extracameras.KeyBinds;
 import dan.extracameras.utils.RenderUtils;
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
@@ -24,14 +24,14 @@ public abstract class InGameHudMixin {
 
     @Inject(method = "renderHotbar", at = @At("HEAD"), cancellable = true)
     private void renderHotbar(float tickDelta, MatrixStack matrices, CallbackInfo ci) {
-        if(Variables.cameraOn) {
+        if(Instance.cameraOn) {
             ci.cancel();
         }
     }
 
     @Inject(method = "render", at = @At("HEAD"))
     private void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
-        if(Variables.cameraOn) {
+        if(Instance.cameraOn) {
             matrices.push();
             RenderUtils.positionAccurateScale(matrices, 1.5f, 5, this.scaledHeight - 20);
             getTextRenderer().draw(matrices, Text.of("Press §l" + KeyBinds.EXIT_CAMERA.getBoundKeyLocalizedText().getString() + " §rto exit the camera"), 5, this.scaledHeight - 20, Color.WHITE.getRGB());

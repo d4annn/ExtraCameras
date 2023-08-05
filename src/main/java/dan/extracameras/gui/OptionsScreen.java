@@ -1,8 +1,8 @@
 package dan.extracameras.gui;
 
-import dan.extracameras.utils.I18nUtils;
+import dan.extracameras.config.Config;
 import dan.extracameras.utils.Options;
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
@@ -10,12 +10,8 @@ import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.DoubleOptionSliderWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import org.apache.commons.lang3.ObjectUtils;
-import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,11 +48,11 @@ public class OptionsScreen extends Screen {
         this.options.put("cameraChunks", this.addDrawableChild(new DoubleOptionSliderWidget(client.options, this.width / 2 + 5, this.height / 6 + 48 - 40 + 24, 150, 20, Options.CAMERA_CHUNKS, new ArrayList<>())));
         this.options.put("mapUpdateRate", this.addDrawableChild(new DoubleOptionSliderWidget(client.options, this.width / 2 - 155, this.height / 6 + 48 - 40 + 24, 150, 20, Options.MAP_UPDATE_RATE, new ArrayList<>())));
         this.addDrawableChild(new ButtonWidget(5, height - 50, 80, 20, new TranslatableText("text.extracameras.default"), (button -> {
-            Variables.CameraOptions.cameraSpeed = 3;
-            Variables.CameraOptions.tickCooldownSupplyInfo = 40;
+            Config.getInstance().cameraSpeed = 3;
+            Config.getInstance().tickCooldownSupplyInfo = 40;
             client.setScreen(gui);
             client.setScreen(new OptionsScreen(gui));
-            Variables.config.saveConfig();
+            Config.getInstance().saveConfig();
         })));
     }
 
@@ -74,7 +70,7 @@ public class OptionsScreen extends Screen {
                     this.timeHovered = 0;
                 } else {
                     if (this.hovered == this.options.get(element)) {
-                        if (this.timeHovered >= Variables.CameraOptions.tickCooldownSupplyInfo) {
+                        if (this.timeHovered >= Config.getInstance().tickCooldownSupplyInfo) {
                             MinecraftClient.getInstance().currentScreen.renderTooltip(matrices, tooltips.get(element), mouseX, mouseY);
                         } else {
                             this.timeHovered++;
@@ -89,9 +85,7 @@ public class OptionsScreen extends Screen {
     }
 
     public void close() {
-        Variables.config.saveConfig();
-        Variables.config.loadConfig();
-        Variables.config.loadUp();
+        Config.getInstance().saveConfig();
     }
 
     @Override

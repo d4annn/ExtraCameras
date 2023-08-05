@@ -48,6 +48,7 @@
   "text.extracameras.tick_cooldown_supply_info": "Cooldown supply info: ",
   "text.extracameras.default": "Default",
   "text.extracameras.camera_chunks": "Camera Chunk Distance: ",
+  "text.extracameras.map_update_rate": "Map Update Rate",
 
   "text.extracameras.confirm_delete": "Click another time the delete button to confirm",
   "text.extracameras.cancel_delete": "Click at any part to cancel"

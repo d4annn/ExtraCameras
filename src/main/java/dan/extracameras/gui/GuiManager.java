@@ -1,8 +1,9 @@
 package dan.extracameras.gui;
 
 
+import dan.extracameras.config.Config;
 import dan.extracameras.utils.RenderUtils;
-import dan.extracameras.utils.Variables;
+import dan.extracameras.utils.Instance;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
@@ -86,7 +87,7 @@ public class GuiManager {
         }
         y1 = y + difference;
         int x1 = 0;
-        int wid = Variables.CamerasListVariables.previewSize >= this.height ? this.height : (int) Variables.CamerasListVariables.previewSize;
+        int wid = Config.getInstance().previewSize >= this.height ? this.height : (int) Config.getInstance().previewSize;
         difference = 4;
         if (acceptsImage(height)) {
             int use = wid == this.height ? this.x + difference + height : this.x + 4 + wid;
@@ -112,7 +113,7 @@ public class GuiManager {
 
     private void renderImageSquare(boolean draw) {
         if (acceptsImage(height)) {
-            int wid = Variables.CamerasListVariables.previewSize >= this.height ? this.height : (int) Variables.CamerasListVariables.previewSize;
+            int wid = Config.getInstance().previewSize >= this.height ? this.height : (int) Config.getInstance().previewSize;
             int difference = 4;
 
             if (wid > 65) wid = 65;
@@ -136,7 +137,7 @@ public class GuiManager {
     }
 
     public boolean acceptsImage(int height) {
-        return Variables.CamerasListVariables.entryWidth >= 250;
+        return Config.getInstance().entryWidth >= 250;
     }
 
     public List<Form> getForms() {
