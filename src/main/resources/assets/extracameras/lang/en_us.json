@@ -42,13 +42,14 @@
   "text.extracameras.name": "Name",
   "text.extracameras.active": "Active",
   "text.extracameras.width_low": "To edit the gui you need a bigger screen width",
-  "text.extracameras.preview_on": "All preview",
+  "text.extracameras.preview_on": "Show grid",
   "text.extracameras.name": "Name",
   "text.extracameras.camera_speed": "Camera speed: ",
   "text.extracameras.tick_cooldown_supply_info": "Cooldown supply info: ",
   "text.extracameras.default": "Default",
   "text.extracameras.camera_chunks": "Camera Chunk Distance: ",
   "text.extracameras.map_update_rate": "Map Update Rate",
+  "text.extracameras.show_cords_when_hover": "Show Coords On Hover: ",
 
   "text.extracameras.confirm_delete": "Click another time the delete button to confirm",
   "text.extracameras.cancel_delete": "Click at any part to cancel"

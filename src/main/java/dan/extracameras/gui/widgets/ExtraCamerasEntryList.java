@@ -20,6 +20,7 @@ public class ExtraCamerasEntryList<E extends EntryListWidget.Entry<E>> extends E
         setZOffset(0);
     }
 
+
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         renderBackground(matrices);

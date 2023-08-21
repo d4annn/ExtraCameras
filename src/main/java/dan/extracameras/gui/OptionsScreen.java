@@ -2,12 +2,12 @@ package dan.extracameras.gui;
 
 import dan.extracameras.config.Config;
 import dan.extracameras.utils.Options;
-import dan.extracameras.utils.Instance;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.CyclingButtonWidget;
 import net.minecraft.client.gui.widget.DoubleOptionSliderWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -47,6 +47,8 @@ public class OptionsScreen extends Screen {
         this.options.put("tickTime", this.addDrawableChild(new DoubleOptionSliderWidget(client.options, this.width / 2 + 5, this.height / 6 + 48 - 40, 150, 20, Options.TICK_TOOLTIP, new ArrayList<>())));
         this.options.put("cameraChunks", this.addDrawableChild(new DoubleOptionSliderWidget(client.options, this.width / 2 + 5, this.height / 6 + 48 - 40 + 24, 150, 20, Options.CAMERA_CHUNKS, new ArrayList<>())));
         this.options.put("mapUpdateRate", this.addDrawableChild(new DoubleOptionSliderWidget(client.options, this.width / 2 - 155, this.height / 6 + 48 - 40 + 24, 150, 20, Options.MAP_UPDATE_RATE, new ArrayList<>())));
+        this.options.put("showCoords", this.addDrawableChild(CyclingButtonWidget.onOffBuilder(Config.getInstance().showCoords).build(this.width / 2 - 155, this.height / 6 + 48 - 40 + 24 + 24, 150, 20, new TranslatableText("text.extracameras.show_cords_when_hover"), (button, active) -> Config.getInstance().showCoords = active)));
+
         this.addDrawableChild(new ButtonWidget(5, height - 50, 80, 20, new TranslatableText("text.extracameras.default"), (button -> {
             Config.getInstance().cameraSpeed = 3;
             Config.getInstance().tickCooldownSupplyInfo = 40;
@@ -99,18 +101,22 @@ public class OptionsScreen extends Screen {
         tooltip.add(Text.of("The speed that you move while"));
         tooltip.add(Text.of("you are using a camera"));
         tooltips.put("cameraSpeed", tooltip);
-        tooltip.clear();
+        tooltip = new ArrayList<>();
         tooltip.add(Text.of("Ticks for supply info"));
-        tooltip.add(Text.of("text appear"));
+        tooltip.add(Text.of("text to appear"));
         tooltips.put("tickTime", tooltip);
-        tooltip.clear();
+        tooltip = new ArrayList<>();
         tooltip.add(Text.of("Chunks visible with the camera"));
         tooltips.put("cameraChunks", tooltip);
-        tooltip.clear();
-        tooltip.add(Text.of("Ticks form Map updates"));
+        tooltip = new ArrayList<>();
+        tooltip.add(Text.of("Map update tickrate"));
         tooltip.add(Text.of("§4ATENTION§r having a low update rate"));
         tooltip.add(Text.of("can make the game laggy"));
         tooltips.put("mapUpdateRate", tooltip);
-        tooltip.clear();
+        tooltip = new ArrayList<>();
+        tooltip.add(Text.of("Show coordinates when"));
+        tooltip.add(Text.of("camera entry hovered"));
+        tooltips.put("showCoords", tooltip);
+        tooltip = new ArrayList<>();
     }
 }

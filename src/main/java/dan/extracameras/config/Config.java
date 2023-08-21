@@ -3,12 +3,17 @@ package dan.extracameras.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dan.extracameras.ExtraCameras;
+import dan.extracameras.objects.DoubleDuple;
 import dan.extracameras.utils.ErrorUtils;
 import dan.extracameras.utils.Instance;
+import net.minecraft.util.Identifier;
+import oshi.software.os.mac.MacInternetProtocolStats;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Config {
 
@@ -22,6 +27,16 @@ public class Config {
     public double previewSize;
     public double cameraChunkDistance;
     public double mapUpdateRate;
+    public boolean showCoords;
+
+    public DoubleDuple namePosition;
+    public DoubleDuple activePosition;
+    public DoubleDuple dimensionPosition;
+    public DoubleDuple posPosition;
+    public DoubleDuple imagePlaced;
+    public DoubleDuple pinnedPosition;
+
+    public boolean showAll;
 
     public Config() {
         checkFile();
@@ -45,6 +60,14 @@ public class Config {
         entryHeight = 26;
         entryWidth = 220;
         previewSize = 50;
+        namePosition = new DoubleDuple(-1, -1);
+        activePosition = new DoubleDuple(-1, -1);
+        dimensionPosition = new DoubleDuple(-1, -1);
+        posPosition = new DoubleDuple(-1, -1);
+        imagePlaced = new DoubleDuple(-1, -1);
+        pinnedPosition = new DoubleDuple(-1, -1);
+        showAll = true;
+        showCoords = true;
     }
 
     public void changeWorldCamerasConfig(CameraConfig newConfig) {
@@ -102,29 +125,10 @@ public class Config {
         try {
             Instance.CONFIG_FOLDER.mkdirs();
             Instance.CONFIG_FILE.createNewFile();
+            Instance.IMAGE_FOLDER.mkdirs();
+            Instance.MAP_FOLDER.mkdirs();
         } catch (IOException e) {
             ErrorUtils.consoleWarn("An error ocurred while creating or checking the config file");
         }
     }
-/*
-    public static BufferedImage getCameraImage(String cameraName) {
-        try {
-            return ImageIO.read(new File(Variables.CAMERA_IMAGES_FOLDER.getPath() + cameraName + ".png"));
-        } catch (IOException e) {
-            ExtraCameras.logger.error("Error ocurred while trying to find the " + cameraName + "camera image!");
-        }
-        return null;
-    }
-
- */
-/*
-    public static void saveCameraImage(String cameraName, BufferedImage image) {
-        try {
-            ImageIO.write(image, "png", new File(Variables.CAMERA_IMAGES_FOLDER.getPath() + cameraName + ".png"));
-        } catch (IOException e) {
-            ExtraCameras.logger.error("Error ocurred while trying to save the " + cameraName + "camera image!");
-        }
-    }
-
- */
 }

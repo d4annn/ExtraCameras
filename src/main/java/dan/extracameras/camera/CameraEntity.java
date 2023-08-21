@@ -52,6 +52,10 @@ public class CameraEntity extends ClientPlayerEntity {
         return isZoneLoaded;
     }
 
+    public Camera getCam() {
+        return cam;
+    }
+
     @Override
     public boolean isSpectator() {
         return true;

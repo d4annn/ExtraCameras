@@ -2,7 +2,6 @@ package dan.extracameras;
 
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import org.checkerframework.checker.units.qual.C;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBinds {
@@ -16,4 +15,6 @@ public class KeyBinds {
     public static final KeyBinding OPEN_LAST_CAMERA = new KeyBinding("key.extracameras.openlast", InputUtil.UNKNOWN_KEY.getCode(), CATEGORY);
 
     public static final KeyBinding EXIT_CAMERA = new KeyBinding("key.extracameras.exit", InputUtil.GLFW_KEY_X, CATEGORY);
+
+    public static final KeyBinding SCREENSHOT = new KeyBinding("key.extracameras.screenshot", InputUtil.UNKNOWN_KEY.getCode(), CATEGORY);
 }

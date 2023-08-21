@@ -5,9 +5,12 @@ import dan.extracameras.camera.CameraEntity;
 import dan.extracameras.gui.CreateCameraScreen;
 import dan.extracameras.gui.MapScreen;
 import dan.extracameras.utils.CameraUtils;
+import dan.extracameras.utils.FileUtils;
 import dan.extracameras.utils.Instance;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
+
+import java.io.File;
 
 public class Packets {
 
@@ -34,13 +37,26 @@ public class Packets {
                 CameraUtils.onDisable();
             }
 
-            if (KeyBinds.OPEN_LAST_CAMERA.wasPressed() && Instance.isOnWorld && Instance.cameraOn) {
+            if (KeyBinds.OPEN_LAST_CAMERA.wasPressed() && Instance.isOnWorld && !Instance.cameraOn) {
                 if (null != Instance.lastCamera) {
                     CameraUtils.onEnable(Instance.lastCamera);
                 }
             }
-            if (Instance.isOnWorld)
+
+            if (KeyBinds.SCREENSHOT.wasPressed() && Instance.isOnWorld && Instance.cameraOn) {
+                File folder = new File(Instance.IMAGE_FOLDER.getAbsolutePath() + "\\" + Instance.currentWorldCameras.getWorld());
+                folder.mkdirs();
+                try {
+
+                    FileUtils.saveScreenshot(new File(Instance.IMAGE_FOLDER.getAbsolutePath() + "\\" + Instance.currentWorldCameras.getWorld() + "\\" + CameraEntity.getCamera().getCam().getName() + ".png"), client.getFramebuffer(), CameraEntity.getCamera().getCam().getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (Instance.isOnWorld && Instance.map != null) {
                 Instance.map.tryUpdate();
+            }
         });
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> {

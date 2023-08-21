@@ -24,6 +24,7 @@ public class CameraUtils {
     }
 
     public static void onEnable(Camera camera) {
+        if(camera == null) return;
         Instance.fakeCamera = new FakeCameraClient();
         Instance.cameraOn = true;
         MinecraftClient.getInstance().setScreen(null);

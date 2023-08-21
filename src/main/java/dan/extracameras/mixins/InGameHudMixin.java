@@ -32,10 +32,8 @@ public abstract class InGameHudMixin {
     @Inject(method = "render", at = @At("HEAD"))
     private void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
         if(Instance.cameraOn) {
-            matrices.push();
-            RenderUtils.positionAccurateScale(matrices, 1.5f, 5, this.scaledHeight - 20);
-            getTextRenderer().draw(matrices, Text.of("Press §l" + KeyBinds.EXIT_CAMERA.getBoundKeyLocalizedText().getString() + " §rto exit the camera"), 5, this.scaledHeight - 20, Color.WHITE.getRGB());
-            matrices.pop();
+            getTextRenderer().draw(matrices, Text.of("Press §l" + KeyBinds.SCREENSHOT.getBoundKeyLocalizedText().getString() + " §rto take camera profile image"), 5, this.scaledHeight - 22 - getTextRenderer().fontHeight, -1);
+            getTextRenderer().draw(matrices, Text.of("Press §l" + KeyBinds.EXIT_CAMERA.getBoundKeyLocalizedText().getString() + " §rto exit the camera"), 5, this.scaledHeight - 20, -1);
         }
     }
 }

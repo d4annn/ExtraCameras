@@ -1,6 +1,9 @@
 package dan.extracameras.utils;
 
 import dan.extracameras.config.Config;
+import dan.extracameras.gui.CameraListGuiScreen;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.DoubleOption;
 import net.minecraft.text.LiteralText;
 
@@ -10,6 +13,12 @@ public class Options {
             (gameOptions) -> Config.getInstance().entryHeight,
             (gameOptions, height) -> {
                 Config.getInstance().entryHeight = height;
+                if(height < 45) {
+                    if(MinecraftClient.getInstance().currentScreen instanceof CameraListGuiScreen) {
+                        CameraListGuiScreen screen = (CameraListGuiScreen) MinecraftClient.getInstance().currentScreen;
+                        screen.reset();
+                    }
+                }
             }, (gameOptions, option) -> new LiteralText(I18nUtils.getString("text.extracameras.entry_height", new Object[0]) + (int) Config.getInstance().entryHeight));
 
     public static final DoubleOption CAMERA_LIST_PREVIEW_HEIGHT = new DoubleOption("text.extracameras.camera_preview_height", 32.0D, 65.0D, 1.0f,
@@ -21,6 +30,13 @@ public class Options {
     public static final DoubleOption CAMERA_LIST_ENTRY_WIDTH = new DoubleOption("text.extracameras.entry_width", 190.0D, 360.0D, 1.0f,
             gameOptions -> Config.getInstance().entryWidth,
             (gameOptions, aDouble) -> {
+
+                if((Config.getInstance().entryWidth >= 230 && aDouble < 230) || Config.getInstance().entryWidth < 230 && aDouble >= 230) {
+                    if(MinecraftClient.getInstance().currentScreen instanceof CameraListGuiScreen) {
+                        CameraListGuiScreen screen = (CameraListGuiScreen) MinecraftClient.getInstance().currentScreen;
+                        screen.reset();
+                    }
+                }
                 Config.getInstance().entryWidth = aDouble;
             },
             (gameOptions, doubleOption) -> new LiteralText(I18nUtils.getString("text.extracameras.entry_width", new Object[0]) + (int) Config.getInstance().entryWidth));

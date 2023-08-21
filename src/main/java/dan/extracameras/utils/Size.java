@@ -1,7 +1,6 @@
 package dan.extracameras.utils;
 
 public class Size {
-
     public int x;
     public int y;
     public int width;
